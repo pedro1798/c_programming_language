@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/pedro1798/Projects/c_network_study/hello_client'
+relocations:     []
+...
