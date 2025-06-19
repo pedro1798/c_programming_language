@@ -27,3 +27,5 @@ void error_handling(char *message) {
     fputc('\n', stderr); // 줄 바꿈
     exit(1); // 프로그램 종료
 }
+
+// 커밋 테스트
