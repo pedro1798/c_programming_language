@@ -1,25 +1,41 @@
 # Simple Makefile with use of gcc
-CC=gcc # C Compiler 
-CFLAGS=-g -Wall # Debug information 추가, Warning을 전부 표시 
-EXE=hello # 최종 결과물 출력하는 rule
-OBJ:=pointer_example.o structure_example.o
+.PHONY: all clean run test install uninstall debug
+
+CC=gcc
+# -g: 디버그 정보 추가, -Wall: 모든 경고 메시지 표시
+CFLAGS=-g -Wall
+
+SRC_DIR=src
+OBJ_DIR=build
+BIN_DIR=bin
+
+# $(wildcard ...) : 해당 디렉토리의 모든 파일 가져오기
+# $(patsubst A, B, C) 문자열 패턴 치환 (경로 대응)
+EXEC=$(BIN_DIR)/c_study
+SOURCES=$(wildcard $(SRC_DIR)/*.c)
+OBJECTS=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SOURCES))
 
 # 기본 빌드
-all: $(EXE) # all rule은 EXE macro가 dependency로 충족되었을 때 실행된다.
+all: $(EXEC)
 
-$(EXE): $(OBJ) # 등록한 모든 오브젝트 파일을 디펜던시로 받는다.
-	$(CC) ($OBJ) -o $(EXE) # 모든 오브젝트를 하나의 $(EXE) 실행 파일로 묶는다.
+clean:
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
+# 최종 실행 파일 생성
+# 디렉토리가 없다면 생성, 쉘스크립트 앞에 @를 붙이면 명령어 출력 생략
 # %는 패턴 규칙에서 자리를 지정하는 와일드 카드
 # $*는 그 %에 실제로 들어온 값을 의미한다. 
-clean-%:
-	rm -rf $*.o $*
+# $@은 타겟 이름, $<은 첫 번째 디펜던시, $^는 모든 디펜던시를 의미한다.
+$(EXEC): $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $^ -o $@
 
-# 실행 파일 생성(GNU 패턴 규칙 사용)
-%: %.o  # %.o dependency 없다면 아래 rule에서 찾아 자동으로 실행한다.
+# 단일 실행 파일 생성
+$(BIN_DIR)/%: $(OBJ_DIR)/%.o
+	@mkdir -p $(BIN_DIR)
 	$(CC) $< -o $@
-# $<: 첫 번쨰 디펜던시, $@: 타겟(rule, 만들고자 하는 결과물) 
 
-# 오브젝트 파일 생성
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
+# OBJ_DIR에 오브젝트 파일 생성
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
