@@ -1,6 +1,6 @@
 # Simple Makefile with use of gcc
 
-# .PHONY는 디렉토리보다 우선하는 rule 이름임
+# .PHONY는 디렉토리보다 우선하는 rule이다.
 .PHONY: all clean run test install uninstall debug
 
 CC=gcc
