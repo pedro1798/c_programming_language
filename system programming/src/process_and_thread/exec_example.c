@@ -18,7 +18,7 @@ int main() {
     "-l" : argv[1] → 옵션
     NULL : 인자 종료 표시
     */
-    // execl은 실행되면 이 아래는 안 출력됨.
+    /* execl은 실행되면 이 아래는 안 출력됨. */
 
     printf("This won't print\n");
     return 0;
