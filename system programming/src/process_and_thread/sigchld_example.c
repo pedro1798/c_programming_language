@@ -11,9 +11,9 @@
 void sigchld_handler(int signum) {
     int status; // 자식 프로세스의 종료 상태를 담을 변수입니다.
     // 자식 프로세스의 종료 상태 회수
-    // -1 : 모든 자식 프로세스 중 아무나 하나를 기다린다.
+    // -1 : 모든 자식 프로세스 중 아무나 하나를 기다린다. 
     // WNOHANG : 자식 프로세스가 종료되지 않았으면 즉시 반환하도록 한다. 블로킹되지 않는다.
-    // 즉, WNOHANG을 쓰면 부모가 자식이 아직 안 죽었는데도 무한히 기다리지 않고 돌아온다.
+    // 즉, WNOHANG(Wait No Hang)을 쓰면 부모가 자식이 아직 안 죽었는데도 무한히 기다리지 않고 돌아온다.
 
     pid_t pid = waitpid(-1, &status, WNOHANG);
     printf("자식 프로세스 종료됨: PID=%d\n", pid);
