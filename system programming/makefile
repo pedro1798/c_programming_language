@@ -32,8 +32,10 @@ clean:
 $(EXEC): $(OBJECTS)
 	@mkdir -p $(BIN_DIR)
 	$(CC) $^ -o $@
+
 # 단일 실행 파일 생성
 $(BIN_DIR)/%: $(OBJ_DIR)/%.o
+
 # bin 하위 디렉토리까지 생성
 	@mkdir -p $(dir $@)
 	$(CC) $< -o $@
