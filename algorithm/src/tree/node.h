@@ -30,7 +30,7 @@ TreeNode* create_node(int data);
  * @param root 트리의 루트 노드를 가리키는 포인터의 주소
  * @param data 삽입할 값
  */
-void insert_node(TreeNode** root, int data);
+void insert_node_bst(TreeNode** root, int data);
 
 /**
  * @brief 트리를 중위 순회하며 노드 데이터를 출력합니다.

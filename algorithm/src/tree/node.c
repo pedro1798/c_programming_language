@@ -24,13 +24,13 @@ TreeNode* create_node(int data) {
  * @brief 이진 탐색 트리에 데이터를 삽입합니다.
  * @note node.h에 선언되어 있습니다.
  */
-void insert_node(TreeNode** root, int data) {
+void insert_node_bst(TreeNode** root, int data) {
     if (*root == NULL) {
         *root = create_node(data);
     } else if (data < (*root)->data) {
-        insert_node(&((*root)->left), data);
+        insert_node_bst(&((*root)->left), data);
     } else {
-        insert_node(&((*root)->right), data);
+        insert_node_bst(&((*root)->right), data);
     }
 }
 
